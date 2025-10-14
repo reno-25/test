@@ -44,16 +44,15 @@ const BlogItem = () => {
         title: item.title,
         category: item.category,
         author: item.author,
-        date: item.date,
     }))
 
     return (
-        <div style={{ height: 600, width: '100%' }} className="p-5">
+        <div style={{ height: 600, width: '100%' }} className="p-5 gap-2 mb-10">
             <h2 className="text-xl font-semibold mb-4">Blog Data</h2>
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSizeOptions={[5, 10]}
+                pageSizeOptions={[5, 10, 50]}
                 initialState={{
                     pagination: { paginationModel: { pageSize: 5 } },
                 }}
