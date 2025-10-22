@@ -3,14 +3,17 @@ import React, { useRef, useState, useEffect } from 'react';
 
 // --- Hook untuk deteksi breakpoint aktif ---
 function useBreakpoint() {
-  const [bp, setBp] = useState<'sm' | 'md' | 'lg' | 'default'>('default');
+  const [bp, setBp] = useState<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default'>('default');
 
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w < 640) setBp('sm');
-      else if (w < 1024) setBp('md');
-      else setBp('lg');
+      if (w < 321) setBp('xs');
+      else if (w < 426) setBp('sm');
+      else if (w < 769) setBp('md');
+      else if (w < 1025) setBp('lg');
+      else if (w < 1441) setBp('xl');
+      else setBp('default');
     };
     update();
     window.addEventListener('resize', update);
@@ -32,14 +35,16 @@ interface FreeDragResizeBoxProps {
   id: string;
   sizeData: {
     default: Size;
+    xs?: Size
     sm?: Size;
     md?: Size;
     lg?: Size;
+    xl?: Size;
   };
   bounds?: 'window' | 'parent';
   onChange?: (data: {
     id: string;
-    breakpoint: 'sm' | 'md' | 'lg' | 'default';
+    breakpoint: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
     x: number;
     y: number;
     width: number;

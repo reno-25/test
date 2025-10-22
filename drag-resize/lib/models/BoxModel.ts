@@ -10,6 +10,8 @@ interface ISize {
 export interface IBox extends Document {
   id: string;
   size: {
+    xs: ISize;
+    xl: ISize;
     md: ISize;
     lg: ISize;
     sm: ISize;
@@ -33,9 +35,11 @@ const BoxSchema = new Schema<IBox>(
   {
     id: { type: String, required: true, unique: true },
     size: {
-      sm: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
-      md: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
-      lg: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
+      xs: { type: SizeSchema, required: true, default: { x: 25, y: 25, width: 100, height: 50 } },
+      sm: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 150, height: 100 } },
+      md: { type: SizeSchema, required: true, default: { x: 75, y: 75, width: 200, height: 150 } },
+      lg: { type: SizeSchema, required: true, default: { x: 100, y: 100, width: 250, height: 200 } },
+      xl: { type: SizeSchema, required: true, default: { x: 125, y: 125, width: 300, height: 250 } },
       default: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
     },
   },
