@@ -14,22 +14,12 @@ export default function Main() {
             const res = await fetch("/api/boxes");
             if (res.ok) {
                 const data = await res.json();
-
-                // Konversi jika masih dalam pixel
-                const parent = document.body.getBoundingClientRect();
-                const converted = data.map((b: any) => ({
-                    ...b,
-                    x: (b.x / parent.width) * 100,
-                    y: (b.y / parent.height) * 100,
-                    width: (b.width / parent.width) * 100,
-                    height: (b.height / parent.height) * 100,
-                }));
-
-                setBoxData(converted);
+                setBoxData(data);
+            } else {
+                console.warn("Gagal memuat data box");
             }
         })();
     }, []);
-
 
     // update posisi/ukuran kotak
     const handleChange = (data: { id: string; x: number; y: number; width: number; height: number }) => {
@@ -67,15 +57,6 @@ export default function Main() {
                     className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
                 >
                     Save Changes
-                </button>
-                <button
-                    onClick={() => {
-                        const newId = `box-${Date.now()}`;
-                        setBoxData([...boxData, { id: newId, x: 10, y: 10, width: 20, height: 20 }]);
-                    }}
-                    className="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition"
-                >
-                    Add Box
                 </button>
             </div>
 

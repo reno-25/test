@@ -15,8 +15,8 @@ const FreeDragResizeBox: React.FC<FreeDragResizeBoxProps> = ({
   id,
   initialX = 50,
   initialY = 50,
-  initialWidth = 100,
-  initialHeight = 100,
+  initialWidth = 200,
+  initialHeight = 150,
   bounds = 'parent',
   onChange,
 }) => {
@@ -29,16 +29,7 @@ const FreeDragResizeBox: React.FC<FreeDragResizeBoxProps> = ({
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const updateParent = (x: number, y: number, w: number, h: number) => {
-    const parent = ref.current?.parentElement;
-    if (!parent) return;
-
-    const parentRect = parent.getBoundingClientRect();
-    const xPercent = (x / parentRect.width) * 100;
-    const yPercent = (y / parentRect.height) * 100;
-    const wPercent = (w / parentRect.width) * 100;
-    const hPercent = (h / parentRect.height) * 100;
-
-    onChange?.({ id, x: xPercent, y: yPercent, width: wPercent, height: hPercent });
+    onChange?.({ id, x, y, width: w, height: h });
   };
 
   const onMouseDownDrag = (e: React.MouseEvent) => {
@@ -123,15 +114,15 @@ const FreeDragResizeBox: React.FC<FreeDragResizeBoxProps> = ({
       onMouseDown={onMouseDownDrag}
       className="absolute bg-white shadow-lg border border-gray-400 cursor-grab active:cursor-grabbing"
       style={{
-        left: `${pos.x}%`,
-        top: `${pos.y}%`,
-        width: `${size.width}%`,
-        height: `${size.height}%`,
-        userSelect: "none",
+        left: pos.x,
+        top: pos.y,
+        width: size.width,
+        height: size.height,
+        userSelect: 'none',
       }}
     >
       {/* Content */}
-      <div className="w-full h-full flex items-center justify-center text-gray-700 select-none">
+      <div className="flex items-center justify-center text-gray-700 select-none">
         Box {id}
       </div>
 

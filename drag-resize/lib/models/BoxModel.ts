@@ -1,21 +1,43 @@
 import mongoose, { Schema, Document, models } from 'mongoose';
 
-export interface IBox extends Document {
-  id: string;
+interface ISize {
   x: number;
   y: number;
   width: number;
   height: number;
-  updatedAt: Date;
 }
 
-const BoxSchema = new Schema<IBox>(
+export interface IBox extends Document {
+  id: string;
+  size: {
+    md: ISize;
+    lg: ISize;
+    sm: ISize;
+    default: ISize;
+  };
+  updatedAt: Date;
+  createdAt: Date;
+}
+
+const SizeSchema = new Schema<ISize>(
   {
-    id: { type: String, required: true, unique: true },
     x: { type: Number, required: true },
     y: { type: Number, required: true },
     width: { type: Number, required: true },
     height: { type: Number, required: true },
+  },
+  { _id: false } // prevents Mongoose from creating _id inside each sub-size
+);
+
+const BoxSchema = new Schema<IBox>(
+  {
+    id: { type: String, required: true, unique: true },
+    size: {
+      md: { type: SizeSchema, required: true },
+      lg: { type: SizeSchema, required: true },
+      sm: { type: SizeSchema, required: true },
+      default: { type: SizeSchema, required: true },
+    },
   },
   { timestamps: true }
 );
