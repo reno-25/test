@@ -33,10 +33,10 @@ const BoxSchema = new Schema<IBox>(
   {
     id: { type: String, required: true, unique: true },
     size: {
-      md: { type: SizeSchema, required: true },
-      lg: { type: SizeSchema, required: true },
-      sm: { type: SizeSchema, required: true },
-      default: { type: SizeSchema, required: true },
+      sm: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
+      md: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
+      lg: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
+      default: { type: SizeSchema, required: true, default: { x: 50, y: 50, width: 200, height: 150 } },
     },
   },
   { timestamps: true }
