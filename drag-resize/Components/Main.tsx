@@ -115,7 +115,15 @@ export default function Main() {
     };
 
     return (
-        <div className="relative w-full h-screen bg-gray-100 overflow-scroll">
+        <div className="relative w-full h-screen bg-gray-100"
+            style={{
+                backgroundImage: `
+                linear-gradient(to right, #ddd 1px, transparent 1px),
+                linear-gradient(to bottom, #ddd 1px, transparent 1px)
+                `,
+                backgroundSize: '20px 20px',
+            }}
+        >
             {/* Tombol Save dan Info Breakpoint */}
             <div className="absolute top-4 left-4 z-10 flex gap-2 items-center">
                 <button
@@ -148,6 +156,9 @@ export default function Main() {
                     />
                 );
             })}
+            <div className="border w-10 h-10">
+                x
+            </div>
         </div>
     );
 }

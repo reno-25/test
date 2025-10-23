@@ -23,6 +23,12 @@ function useBreakpoint() {
   return bp;
 }
 
+// --- Helper snap ke grid 20x20 ---
+const GRID_SIZE = 20;
+function snapToGrid(value: number) {
+  return Math.round(value / GRID_SIZE) * GRID_SIZE;
+}
+
 // --- Interface utama ---
 interface Size {
   x: number;
@@ -98,10 +104,16 @@ const FreeDragResizeBox: React.FC<FreeDragResizeBoxProps> = ({
       let newY = e.clientY - offset.y - parentRect.top;
       newX = Math.max(0, Math.min(newX, parentRect.width - size.width));
       newY = Math.max(0, Math.min(newY, parentRect.height - size.height));
+
+      // snap ke grid
+      newX = snapToGrid(newX);
+      newY = snapToGrid(newY);
+
       setPos({ x: newX, y: newY });
       updateParent(newX, newY, size.width, size.height);
     }
 
+    // Resize
     if (resizing && resizeDir) {
       const deltaX = e.movementX;
       const deltaY = e.movementY;
@@ -119,6 +131,12 @@ const FreeDragResizeBox: React.FC<FreeDragResizeBoxProps> = ({
         height = Math.max(50, height - deltaY);
         y = y + deltaY;
       }
+
+      // snap ukuran dan posisi
+      width = snapToGrid(width);
+      height = snapToGrid(height);
+      x = snapToGrid(x);
+      y = snapToGrid(y);
 
       setPos({ x, y });
       setSize({ width, height });
